@@ -61,4 +61,15 @@ const getBook = (id:number  ) =>{
 }
 console.log(getBook(1));
 
+const deleteBook = (id:number  ) =>{
+    try {
+        const query = db.query(`DELETE from books where id = $id;`)
+        return query.run({
+            $id:id
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
+console.log(deleteBook(10));
