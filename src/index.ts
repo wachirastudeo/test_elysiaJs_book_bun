@@ -1,11 +1,10 @@
 import { Elysia } from "elysia";
-
+import { getBooks } from "./model";
 const app = new Elysia()
 
 app
-.get('/', () => ({ 
-  message: 'Hello World'
-}))
+.get('/', () => 
+  getBooks())
 .listen(8000);
 
 console.log(

@@ -35,7 +35,6 @@ const updateBook = (id:number,book : any)=>{
         return [];
     }
 }
-updateBook(1,{name:'a',author:'b',price:400})
 const getBooks = () =>{
     try {
         const query = db.query(`SELECT * from 'books'`);
@@ -46,7 +45,6 @@ const getBooks = () =>{
         return [];
     }
 }
-console.log(getBooks());
 const getBook = (id:number  ) =>{
     try {
         const query = db.query(`SELECT * from books where id = $id;`)
@@ -60,7 +58,6 @@ const getBook = (id:number  ) =>{
         return [];
     }
 }
-console.log(getBook(1));
 
 const deleteBook = (id:number  ) =>{
     try {
@@ -73,7 +70,6 @@ const deleteBook = (id:number  ) =>{
     }
 }
 
-console.log(deleteBook(10));
 
 
 const createUser = (user : any)=>{
@@ -120,7 +116,13 @@ const getUser = (user:any) =>{
         
     }
 }
-console.log(getUser({
-    email:'a@gmail.com',
-    password:'12346'
-}));
+
+export {
+    createBook,
+    updateBook,
+    getBooks,
+    getBook,
+    deleteBook,
+    createUser,
+    getUser
+}
