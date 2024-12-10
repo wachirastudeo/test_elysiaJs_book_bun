@@ -1,4 +1,5 @@
 import { Database } from "bun:sqlite";
+import { t } from "elysia";
 
 const db = new Database('mydb.sqlite');
 
@@ -73,3 +74,53 @@ const deleteBook = (id:number  ) =>{
 }
 
 console.log(deleteBook(10));
+
+
+const createUser = (user : any)=>{
+    try {
+        const query = db.query(`
+            INSERT INTO users
+    ("email", "password")
+    VALUES ($email, $password);`)
+    query.run({
+        $email:user.email,
+        $password:user.password,
+    })
+    } catch (error) {
+        
+    }
+}
+createUser({email:'a@gmail.com',password:'123456'})
+
+
+const getUser = (user:any) =>{
+    try {
+        const query = db.query(
+            `SELECT * from users where email = $email and password = $password;`);
+        const checked= query.get({
+            $email:user.email,
+            $password:user.password
+
+        })
+
+        if(!checked){
+            throw new Error("user not found");
+            
+        }else{
+            return{
+                logedIn:true
+            }
+        }
+
+    } catch (error) {
+        console.log('error',error);
+        return{
+            logedIn:false
+        }
+        
+    }
+}
+console.log(getUser({
+    email:'a@gmail.com',
+    password:'12346'
+}));
