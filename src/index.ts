@@ -1,10 +1,26 @@
 import { Elysia } from "elysia";
-import { getBooks } from "./model";
+import { getBooks,createBook } from "./model";
 const app = new Elysia()
 
-app
-.get('/', () => 
-  getBooks())
+app.get('/books', () => {
+  return getBooks()})
+
+app.post('/book', ({ body,set }) => {
+ 
+  const response = createBook({
+    name: body.name,
+    author: body.author,  
+    price: body.price
+  })
+  if(response.status === 'error') 
+    {
+      set.status = 400
+      return {message:'insert incomplete'}
+    }
+
+  return {message:'ok'}
+})
+
 .listen(8000);
 
 console.log(
