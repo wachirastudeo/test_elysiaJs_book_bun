@@ -17,8 +17,24 @@ const createBook = (book : any)=>{
         
     }
 }
-console.log(createBook({name:'book1',author:'author1',price:100}))
+// console.log(createBook({name:'book1',author:'author1',price:100}))
 
+const updateBook = (id:number,book : any)=>{
+    try {
+        const query = db.query(`
+            update books set "name"=$name , "author"=$author , "price"=$price where id = $id;`)
+    query.run({
+        $id:id,
+        $name:book.name,
+        $author:book.author,
+        $price:book.price
+    })
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+updateBook(1,{name:'a',author:'b',price:400})
 const getBooks = () =>{
     try {
         const query = db.query(`SELECT * from 'books'`);
